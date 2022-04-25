@@ -15,7 +15,10 @@ class Entry(models.Model): #have to associate entries with topic
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
+    class Meta: #used to define to define the plural name
+        verbose_name_plural = 'entries'
 
-def __str__(self):
-    return f'{self.text[:50]}...' #show a ... after 50 characters 
+        
+    def __str__(self):
+        return f'{self.text[:50]}...' #show a ... after 50 characters 
 
