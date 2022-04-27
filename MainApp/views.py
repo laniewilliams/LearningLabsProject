@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import TopicForm
 
 from .models import Topic
 # Create your views here.
@@ -23,3 +24,18 @@ def topic(request, topic_id):
     context = {'topic':topic, 'entries':entries} #passes information from the view to use in the template
 
     return render(request, 'MainApp/topic.html', context) #MainApp/topic.html this is just saying to use the topic file for the template
+
+def new_topic(request):
+    if request.method != 'POST': #this means that it's a get request, because it's not a post
+        form = TopicForm() #an instance of the form we created in the forms.py file
+
+    else:
+        form = TopicForm(data=request.POST) #data is coming in from request.POST
+
+        if form.is_valid():
+            new_topic = form.save() #will directly save it to the database
+
+            return redirect('MainApp:topics')
+
+    context = {'form': form}
+    return render(request, 'MainApp/new_topic.html', context)
