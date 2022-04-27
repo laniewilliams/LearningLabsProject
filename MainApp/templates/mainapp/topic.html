@@ -1,0 +1,20 @@
+{% extends "MainApp/base.html" %} 
+
+{% block content %}
+
+<p>Topic: {{topic}}</p> <!--You can only use the keys from the view file in the template-->
+
+<ul>
+    <li>
+    {% for e in entries %}
+    <p>{{ e.text}}</p> <!--use the .text if there is no string method-->
+    <p>{{ e.date_added}}</p>
+    </li>
+    {% empty %}
+    <li>There are no entries for this topic yet.
+
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

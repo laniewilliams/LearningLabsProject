@@ -14,3 +14,12 @@ def topics(request):
     context = {'topics':topics} #the key 'topics' is what you have to refer to in the html. the value is whatever you call it in the view
 
     return render(request, 'MainApp/topics.html', context) #this gets us info from the DB and rendering the page
+
+def topic(request, topic_id):
+    topic = Topic.objects.get(id=topic_id) #need to use get to get a singular topic.
+
+    entries = topic.entry_set.all()
+
+    context = {'topic':topic, 'entries':entries} #passes information from the view to use in the template
+
+    return render(request, 'MainApp/topic.html', context) #MainApp/topic.html this is just saying to use the topic file for the template

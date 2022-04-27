@@ -1,11 +1,12 @@
-{% extends "MainApp/base.html" %} 
+{% extends "MainApp/base.html" %} <!--This is where you can add links to the topics page-->
 
 {% block content %}
 
 <ul>
     {% for t in topics %} 
 
-    <li> {{ t }}</li>
+    <li> <!--the below code gets the names to be a clickable link. We have to tell it which id to use in the url-->
+    <a href="{% url 'MainApp:topic' t.id %}"> {{ t }}<a/></li> <!--t will return the name because we have defined a string method-->
 
     {% empty %}
     <li>No topics have been added yet.</li>
