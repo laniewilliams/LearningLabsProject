@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import TopicForm
+from .forms import TopicForm, EntryForm
 
 from .models import Topic
 # Create your views here.
@@ -39,3 +39,23 @@ def new_topic(request):
 
     context = {'form': form}
     return render(request, 'MainApp/new_topic.html', context)
+
+
+def new_entry(request, topic_id):
+    topic = Topic.objects.get(id=topic_id) #need to use get to get a singular topic.
+
+    if request.method != 'POST':
+        form = EntryForm()
+    else:
+        form = EntryForm(data=request.POST)
+
+        if form.is_valid():
+            new_entry = form.save(commit=False)
+            new_entry.topic = topic #here we are assigning the topic attribute before we save it to the database
+            new_entry.save()
+            return redirect ('MainApp:topic', topic_id=topic_id) #we need to give it the specific topic page to load
+    
+
+    context = {'form':form, 'topic':topic} #passes information from the view to use in the template
+
+    return render(request, 'MainApp/new_entry.html', context) # this is just saying to use the entry html file for the template
