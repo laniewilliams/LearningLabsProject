@@ -17,4 +17,7 @@
     {% endfor %}
 </ul>
 
+<p><a href="{% url 'MainApp:new_entry' topic.id %}">Add new entry</a></p> <!--we add a new entries link to the topic page
+                                                                            we can get topic.id because we are on the topic page.-->
+
 {% endblock content %}
