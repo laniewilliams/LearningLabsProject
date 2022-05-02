@@ -9,6 +9,7 @@
     {% for e in entries %}
     <p>{{ e.text}}</p> <!--use the .text if there is no string method-->
     <p>{{ e.date_added}}</p>
+    <p><a href="{% url 'MainApp:edit_entry' e.id %}">Edit entry</a></p> <!--you'll be able to edit every entry-->
     </li>
     {% empty %}
     <li>There are no entries for this topic yet.

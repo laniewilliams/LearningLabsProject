@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import TopicForm, EntryForm
 
-from .models import Topic
+from .models import Topic, Entry
 # Create your views here.
 
 def index(request): #name of the view is index bc in urls.py we said views.index
@@ -59,3 +59,23 @@ def new_entry(request, topic_id):
     context = {'form':form, 'topic':topic} #passes information from the view to use in the template
 
     return render(request, 'MainApp/new_entry.html', context) # this is just saying to use the entry html file for the template
+
+def edit_entry(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic #use the variable entry that's storing the object
+
+    if request.method != 'POST':
+        form = EntryForm(instance=entry) #loading the specific form from the database
+    
+    else:
+        form = EntryForm(instance=entry, data=request.POST) #when we're saving, we want it to save to the same object with the new information
+
+
+        if form.is_valid():
+            form.save()
+            return redirect('MainApp:topic',topic_id=topic.id)
+    
+    context = {'form':form, 'topic':topic, 'entry':entry}
+    return render(request, 'MainApp/edit_entry.html', context)
+            
+

@@ -1,0 +1,19 @@
+{% extends "MainApp/base.html" %} 
+
+{% block content %}
+
+<p><a href="{% url 'MainApp:topic' topic.id %}">{{ topic }}</a></p> <!--provides a link to click back to the topic page-->
+
+<p>Edit entry:</p>
+<form action="{% url 'MainApp:edit_entry' entry.id %}" method = 'post'> <!--topic_id is just a variable.
+                                                                            topic.id is the attribute id of the topic object.-->
+
+    {% csrf_token %} <!-- will prevent sql injections. prevents users from accessing the database-->
+
+    {{form.as_p }} 
+
+    <button name='submit'>Save Changes</button> <!--Add topic is the name on the button-->
+
+
+</form>
+{% endblock content %}
