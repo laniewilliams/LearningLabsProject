@@ -18,5 +18,6 @@ from django.urls import path, include #parent url file needs to include the urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('MainApp.urls')), 
+    path('',include('MainApp.urls')),
+    path('users/',include('users.urls')), 
 ]
