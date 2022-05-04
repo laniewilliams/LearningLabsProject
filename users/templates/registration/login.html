@@ -11,7 +11,7 @@
     {{ form.as_p}}
 
     <button name="submit">Log in</button>
-    <input type="hidden" name="text" 
+    <input type="hidden" name="next" 
     value= "{% url 'MainApp:index' %}" />
 </form> <!-- don't have a way to redirect bc we can't access view. So we are using html to redirect to the homepage.-->
 

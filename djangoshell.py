@@ -22,3 +22,8 @@ entries = t.entry_set.all() #because entry is a foreign key to the topic, you ge
 
 for e in entries:
     print(e) #can just say e instead of e.text because of the string method
+
+from django.contrib.auth.models import User
+
+for user in User.objects.all():
+    print(user.username,user.id)
